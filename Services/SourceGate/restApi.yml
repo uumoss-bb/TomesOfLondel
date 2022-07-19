@@ -1,0 +1,5 @@
+Resources:
+  TheTomesRestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties: 
+      Name: TheTomes-${self:custom.stage}

@@ -1,0 +1,61 @@
+service: TheTomes-SourceGate
+  
+custom:
+  stage: ${opt:stage, self:provider.stage}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  environment: ${file(../../../env.yml):${self:custom.stage}}
+
+  deploymentBucket: 
+    name: TheTomes-${self:custom.stage}-deployment-111
+    tags:
+      project: TomesOfLondelo
+      cluster: apigateway_microservice
+      enviroment: ${self:custom.stage}
+
+resources:
+  Resources:
+    TomesOfLondelo:
+      Type: AWS::ApiGateway::RestApi
+      Properties: 
+        Name: TheTomes-${self:custom.stage}
+
+    GatewayResponseDefault4XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: 'TomesOfLondelo'
+          
+    GatewayResponseDefault5XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_5XX
+        RestApiId:
+          Ref: 'TomesOfLondelo'
+
+  Outputs:
+    TomesOfLondeloId:
+      Value:
+        Ref: TomesOfLondelo
+      Export:
+        Name: ${self:custom.stage}-TheTomes-RestApiId
+
+    TomesOfLondeloRootResourceId:
+      Value:
+        Fn::GetAtt:
+          - TomesOfLondelo
+          - RootResourceId 
+      Export:
+        Name: ${self:custom.stage}-TheTomes-RestApiRootResourceId
+
