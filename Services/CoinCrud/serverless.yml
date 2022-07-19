@@ -1,0 +1,91 @@
+service: TheTomes-CoinCrud
+
+plugins:
+  - serverless-bundle
+  - serverless-plugin-reducer
+  - serverless-plugin-aws-alerts
+  
+custom:
+  stage: ${opt:stage, self:provider.stage}
+
+  bundle: 
+    sourcemaps: true
+    caching: true
+    linting: false 
+
+  package:
+    individually: true
+
+  # alerts:
+  #   stages:
+  #     - prod
+  #     - staging
+
+  #   dashboards: false
+
+  #   nameTemplate: $[functionName]-$[metricName]-Alarm # Optionally - naming template for alarms, can be overwritten in definitions
+  #   prefixTemplate: $[stackName] # Optionally - override the alarm name prefix
+
+  #   topics:
+  #     alarm:
+  #       topic: ${self:service}-${opt:stage}-alerts-alarm
+  #       notifications:
+  #         - protocol: email
+  #           endpoint: balserbrodie@gmail.com
+
+  #   definitions:  # these defaults are merged with your definitions
+  #     InternalErrors:
+  #       metric: InternalErrors
+  #       description: 'This will scan a functions logs and if it sees the pattern(e.g. error status = 500) this it will sound the alarm'
+  #       threshold: 0
+  #       statistic: Sum
+  #       period: 60
+  #       evaluationPeriods: 1
+  #       datapointsToAlarm: 1
+  #       comparisonOperator: GreaterThanThreshold
+  #       pattern: '{$.statusCode=500}'
+
+  #   alarms:
+  #     - InternalErrors
+    
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+  environment: 
+    STAGE: ${self:custom.stage}
+    
+  deploymentBucket: 
+    name: TheTomes-${self:custom.stage}-deployment-111
+    tags:
+      project: TomesOfLondelo
+      cluster: CoinCRUD_microservice
+      enviroment: ${self:custom.stage}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:BatchGetItem
+      Resource:
+        - 'Fn::ImportValue': VivedApi-${self:custom.stage}-OuzelTableArn
+        - ${cf:VivedApi-DynamoTables-${self:custom.stage}.OuzelTableArn}/index/*
+
+  apiGateway:
+    restApiId:
+      'Fn::ImportValue': ${self:custom.stage}-Vived-RestApiId
+    restApiRootResourceId:
+      'Fn::ImportValue': ${self:custom.stage}-Vived-RestApiRootResourceId
+
+functions:
+  - ${file(lambdas.yml)}
+
+# This is from Plugin-reducer it helps keep resources used to a low when deploying
+package:
+  individually: true

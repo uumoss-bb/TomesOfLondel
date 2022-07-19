@@ -1,0 +1,15 @@
+
+channel_create:
+  handler: http_requests/index.createChannelRequest
+  alarms: 
+    - InternalErrors
+  events:
+    - http:
+        path: channels
+        method: post
+        cors:
+          origin: ${self:custom.${self:custom.stage}.CORS_ORIGIN}
+          allowCredentials: false
+        authorizer:
+          type: CUSTOM
+          authorizerId: ${self:custom.AdminAuthorizerId}

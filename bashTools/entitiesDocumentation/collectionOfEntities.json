@@ -1,0 +1,170 @@
+{
+	"activities": [
+		{
+			"SK": "55b96e7e-61b2-4a01-94e5-d778745ed91f",
+			"type": "channel-activity",
+			"isPlayerV2": true,
+			"PK": "id",
+			"channel_name": "name",
+			"root_owner": "123",
+			"title": "title",
+			"description": "description",
+			"image": "https://undefined.s3.us-east-1.amazonaws.com/Thumbnails/image"
+		},
+		{
+			"PK": "0d3484d2-c49e-4292-a876-02ae4ac8c518",
+			"SK": "activityId",
+			"type": "asset-activity",
+			"asset_type": "image/png",
+			"filename": "file.png",
+			"timeOfDeath": 1650992152049,
+			"isSaved": false
+		}
+	],
+	"apps": [
+		{
+			"PK": "id",
+			"SK": "app",
+			"versions": [
+				"1.0.0",
+				"1.1.0"
+			],
+			"title": "title",
+			"description": "description",
+			"image": "image"
+		}
+	],
+	"channelAssets": [
+		{
+			"PK": "e996cff5-0814-4824-957e-a9f98b7b7f7d",
+			"SK": "assetId",
+			"type": "file-asset",
+			"version": 2,
+			"app_data": [
+				{
+					"app_id": "app_id",
+					"data": "data"
+				}
+			],
+			"status": "published",
+			"file": "file",
+			"master_file": "masterFile"
+		},
+		{
+			"PK": "channelId",
+			"SK": "15c4ac71-7b45-4a25-963c-26ebd010f2c1",
+			"type": "channel-asset",
+			"asset_type": "glb",
+			"tags": [
+				"tag"
+			],
+			"name": "name",
+			"description": "description",
+			"image": "https://undefined.s3.us-east-1.amazonaws.com/Thumbnails/image"
+		}
+	],
+	"channels": [
+		{
+			"PK": "userId",
+			"SK": "user",
+			"email": "U2FsdGVkX1+IYWN2zuDNm0to5Bo4DF3xpsmq4wpt4wc=",
+			"name": "U2FsdGVkX18eVuJ0AOZ51pBLguVJJ6K5Aex123qHq98=",
+			"given_name": "U2FsdGVkX19teGslabwTZiMxgZRCNSTinM/2a5meXcg=",
+			"last_name": "U2FsdGVkX18vy0siZKSC4+zNdW9soY56edRyS0z3VKA="
+		},
+		{
+			"PK": "channelId",
+			"SK": "collectionId",
+			"type": "channel-collection",
+			"enabled": true,
+			"image": "image",
+			"title": "title",
+			"description": "description"
+		},
+		{
+			"PK": "channelId",
+			"SK": "userId",
+			"role": "owner",
+			"type": "channel-user",
+			"timestamp": "Tue, 26 Apr 2022 15:55:23 GMT",
+			"status": "accepted"
+		},
+		{
+			"PK": "d7753f1a-ccf9-424d-b99c-63f2a8294789",
+			"SK": "d7753f1a-ccf9-424d-b99c-63f2a8294789",
+			"type": "channel",
+			"join_code": "7f95ea1f",
+			"join_code_status": "enabled",
+			"access_pattern": "hidden",
+			"embed_permission": {
+				"permission": "anywhere",
+				"domains_allowed": []
+			},
+			"user_limit": 200,
+			"total_users": 1,
+			"channel_name": "channel_name",
+			"image": "https://undefined.s3.us-east-1.amazonaws.com/Thumbnails/image.file",
+			"banner": "https://undefined.s3.us-east-1.amazonaws.com/Thumbnails/banner.file",
+			"view_collections": true
+		},
+		{
+			"PK": "channelId",
+			"SK": "appId",
+			"type": "channel-app",
+			"title": "title",
+			"description": "description",
+			"image": "image"
+		},
+		{
+			"PK": "channelId",
+			"SK": "bundleId",
+			"type": "channel-bundle"
+		}
+	],
+	"channelSubscriptions": [
+		{
+			"PK": "channelId",
+			"SK": "subscriptionId",
+			"type": "channel-subscription",
+			"expiration": "Thu, 12 Jan 2012 00:00:00 GMT",
+			"can_create": true,
+			"can_edit": true
+		}
+	],
+	"playerAccess": [
+		{
+			"owner": "test",
+			"access_id": "03229ec4-4f16-4f64-9ca4-4ebcf8be032f",
+			"secret": "eb38fe35-f8be-4488-94e0-1cd68b499826",
+			"data": {
+				"name": "test",
+				"enabled": false,
+				"features": {
+					"developSupported": false,
+					"presentationModeIsSupported": false,
+					"customCacheSupported": false,
+					"theaterDisplaySupported": false,
+					"canAuthor": false,
+					"allowDevelopmentTools": false,
+					"showTitleBar": true,
+					"hideFeedbackWidget": true,
+					"hideHelpDocument": true,
+					"screenshotSupported": false,
+					"theaterModeSupported": false,
+					"presentationModeSupported": false,
+					"customCacheIsSupported": false,
+					"canDoFullscreen": true,
+					"narration": false,
+					"allowZSpace": false
+				}
+			},
+			"type": "player-accessKey"
+		},
+		{
+			"access_id": "c8626cac-acf4-462d-a963-2b748181ff1d",
+			"secret": "ee264f94-eaa1-4be3-ac7f-cebee57ab5f6",
+			"owner": "ownerId",
+			"type": "lti-accessKey"
+		}
+	]
+}
