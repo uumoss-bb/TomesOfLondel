@@ -8,10 +8,10 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: us-east-1
-  environment: ${file(../../../env.yml):${self:custom.stage}}
+  environment: ${file(../../env.yml):${self:custom.stage}}
 
   deploymentBucket: 
-    name: TheTomes-${self:custom.stage}-deployment-111
+    name: tomes-${self:custom.stage}-deployment-111
     tags:
       project: TomesOfLondelo
       cluster: apigateway_microservice

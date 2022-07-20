@@ -1,0 +1,14 @@
+CoinTableArn:
+  Value:
+    Fn::GetAtt:
+      - CoinTable
+      - Arn
+  Export:
+    Name: TheTomes-${self:custom.stage}-CoinTableArn
+
+CoinTableName:
+  Value:
+    ${self:custom.dbName}
+
+  Export:
+    Name: TheTomes-${self:custom.stage}-CoinTableName

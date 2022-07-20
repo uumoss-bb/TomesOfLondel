@@ -6,7 +6,20 @@ plugins:
   - serverless-plugin-aws-alerts
   
 custom:
+  dev:
+    BackupsEnabled: false
+  staging:
+    BackupsEnabled: false
+  prod:
+    BackupsEnabled: true
+
   stage: ${opt:stage, self:provider.stage}
+  dbName: TheTomes-${self:custom.stage}-coins
+
+  tableThroughputs:
+    prod: 5
+    default: 10
+  tableThroughput: ${self:custom.tableThroughputs.${self:custom.stage}, self:custom.tableThroughputs.default}
 
   bundle: 
     sourcemaps: true
@@ -57,34 +70,38 @@ provider:
     STAGE: ${self:custom.stage}
     
   deploymentBucket: 
-    name: TheTomes-${self:custom.stage}-deployment-111
+    name: tomes-${self:custom.stage}-deployment-111
     tags:
       project: TomesOfLondelo
       cluster: CoinCRUD_microservice
       enviroment: ${self:custom.stage}
 
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-        - dynamodb:BatchGetItem
-      Resource:
-        - 'Fn::ImportValue': VivedApi-${self:custom.stage}-OuzelTableArn
-        - ${cf:VivedApi-DynamoTables-${self:custom.stage}.OuzelTableArn}/index/*
+  # iamRoleStatements:
+  #   - Effect: Allow
+  #     Action:
+  #       - dynamodb:Query
+  #       - dynamodb:Scan
+  #       - dynamodb:GetItem
+  #       - dynamodb:PutItem
+  #       - dynamodb:UpdateItem
+  #       - dynamodb:DeleteItem
+  #       - dynamodb:BatchGetItem
+  #     Resource:
+  #       - 'Fn::ImportValue': TheTomes-${self:custom.stage}-CoinTableArn
+  #       - ${cf:TheTomes-CoinCrud-${self:custom.stage}.CoinTableArn}/index/*
 
   apiGateway:
     restApiId:
-      'Fn::ImportValue': ${self:custom.stage}-Vived-RestApiId
+      'Fn::ImportValue': ${self:custom.stage}-TheTomes-RestApiId
     restApiRootResourceId:
-      'Fn::ImportValue': ${self:custom.stage}-Vived-RestApiRootResourceId
+      'Fn::ImportValue': ${self:custom.stage}-TheTomes-RestApiRootResourceId
 
-functions:
-  - ${file(lambdas.yml)}
+# functions:
+#   - ${file(lambdas.yml)}
+
+resourses: 
+  - ${file(db/table.yml)}
+  - Outputes: ${file(db/output.yml)}
 
 # This is from Plugin-reducer it helps keep resources used to a low when deploying
 package:

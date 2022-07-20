@@ -20,19 +20,8 @@ async function main() {
 async function getMicroServices() {
   let micro_services = [], services_fullPath = []
 
-  micro_services.push("Public_API")
-  services_fullPath.push("API_Services/Public_API")
-
-  let someServices = await shell.exec("ls API_Services/VLP_API_Microservices").stdout.split("\n")
-  services_fullPath.push(...someServices.map(service => "API_Services/VLP_API_Microservices/" + service))
-  micro_services.push(...someServices)
-
-  someServices = shell.exec("ls API_Services/Config_Microservices").stdout.split("\n")
-  services_fullPath.push(...someServices.map(service => "API_Services/Config_Microservices/" + service))
-  micro_services.push(...someServices)
-
-  someServices = shell.exec("ls API_Services/Collections_API_Microservices").stdout.split("\n")
-  services_fullPath.push(...someServices.map(service => "API_Services/Collections_API_Microservices/" + service))
+  let someServices = await shell.exec("ls Services/").stdout.split("\n")
+  services_fullPath.push(...someServices.map(service => "Services/" + service))
   micro_services.push(...someServices)
   
   micro_services = micro_services.filter(service => service)
