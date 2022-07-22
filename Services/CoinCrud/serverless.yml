@@ -58,6 +58,7 @@ provider:
   region: us-east-1
   environment: 
     STAGE: ${self:custom.stage}
+    DBNAME: ${self:custom.dbName}
     
   deploymentBucket: 
     name: tomes-${self:custom.stage}-deployment-111

@@ -1,7 +1,7 @@
 import BasicCRUD from "./BasicCrud"
 import dynamoDB from "./dynamoDB_helper"
 
-export default class UniversalCalls extends BasicCRUD{
+export default class UniversalCalls extends BasicCRUD {
 
   constructor(tableName) {
     super(tableName)
