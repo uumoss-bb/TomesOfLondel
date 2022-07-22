@@ -6,6 +6,7 @@
 		"test": "jest -i",
 		"local.deployment": "node bashTools/deploy_localy.js",
 		"create.release": "node bashTools/create_release.js",
+		"display.entities": "node bashTools/entitiesDocumentation/displayDocumentation.js",
 		"post.publish": "PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag $PACKAGE_VERSION && git push --tags"
 	},
 	"devDependencies": {

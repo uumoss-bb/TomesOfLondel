@@ -1,53 +1,53 @@
 Resources:
   CoinTable:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: ${self:custom.dbName}
-        PointInTimeRecoverySpecification: 
-          PointInTimeRecoveryEnabled: ${self:custom.${self:custom.stage}.BackupsEnabled}
-        AttributeDefinitions:
-          - AttributeName: PK
-            AttributeType: S
-          - AttributeName: SK
-            AttributeType: S
-          - AttributeName: group
-            AttributeType: S
-        KeySchema:
-          - AttributeName: PK       
-            KeyType: HASH
-          - AttributeName: SK
-            KeyType: RANGE
-        ProvisionedThroughput:
-          ReadCapacityUnits: ${self:custom.tableThroughput}
-          WriteCapacityUnits: ${self:custom.tableThroughput}
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: ${self:custom.dbName}
+      PointInTimeRecoverySpecification: 
+        PointInTimeRecoveryEnabled: ${self:custom.${self:custom.stage}.BackupsEnabled}
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+        - AttributeName: SK
+          AttributeType: S
+        - AttributeName: group
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK       
+          KeyType: HASH
+        - AttributeName: SK
+          KeyType: RANGE
+      ProvisionedThroughput:
+        ReadCapacityUnits: ${self:custom.tableThroughput}
+        WriteCapacityUnits: ${self:custom.tableThroughput}
 
-        GlobalSecondaryIndexes:
-          - IndexName: GSI_BY_SK
-            KeySchema:
-              - AttributeName: SK
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: ${self:custom.tableThroughput}
-              WriteCapacityUnits: ${self:custom.tableThroughput}
+      GlobalSecondaryIndexes:
+        - IndexName: GSI_BY_SK
+          KeySchema:
+            - AttributeName: SK
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
 
-          - IndexName: GSI_BY_GROUP
-            KeySchema:
-              - AttributeName: group
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: ${self:custom.tableThroughput}
-              WriteCapacityUnits: ${self:custom.tableThroughput}
-          
-          - IndexName: GSI_BY_PK
-            KeySchema:
-              - AttributeName: PK
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
-            ProvisionedThroughput:
-              ReadCapacityUnits: ${self:custom.tableThroughput}
-              WriteCapacityUnits: ${self:custom.tableThroughput}
+        - IndexName: GSI_BY_GROUP
+          KeySchema:
+            - AttributeName: group
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}
+        
+        - IndexName: GSI_BY_PK
+          KeySchema:
+            - AttributeName: PK
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
+          ProvisionedThroughput:
+            ReadCapacityUnits: ${self:custom.tableThroughput}
+            WriteCapacityUnits: ${self:custom.tableThroughput}

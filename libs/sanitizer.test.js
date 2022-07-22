@@ -1,191 +1,35 @@
 import * as Sanitizer from "./sanitizer-lib"
 
-test("Sanitizer.checkIsArray - test on fail", () => {
-  let res = Sanitizer.checkIsArray({})
-  expect(res).toBe(false)
+test("Sanitizer.array - test on fail", () => {
+  expect(() => Sanitizer.array({})).toThrowError(Sanitizer.array_error)
 
-  res = Sanitizer.checkIsArray("not array")
-  expect(res).toBe(false)
+  expect(() => Sanitizer.array({})).toThrowError(Sanitizer.array_error)
 
-  res = Sanitizer.checkIsArray(111)
-  expect(res).toBe(false)
+  expect(() => Sanitizer.array(111)).toThrowError(Sanitizer.array_error)
 })
 
-test("Sanitizer.checkIsArray - test on success", () => {
-  let res = Sanitizer.checkIsArray([{id: "id"}])
-  expect(res).toBe(true)
+test("Sanitizer.array - test on success", () => {
+  let arr = [{id: "id"}]
+  expect(Sanitizer.array(arr)).toBe(arr)
 })
 
-test("Sanitizer.activitySlidesCheck - test on fail", () => {
-  let res = Sanitizer.activitySlidesCheck([{wrong: "data"}])
-  expect(res).toBe(false)
-
-  res = Sanitizer.activitySlidesCheck([{id: "   ", name: "name", app_id: "app_id", assets: [{id:"id", version: 1}], data: "data"}])
-  expect(res).toBe(false)
-
-  res = Sanitizer.activitySlidesCheck([{id: "id", name: "    ", app_id: "app_id", assets: [{id:"id", version: 1}], data: "data"}])
-  expect(res).toBe(false)
-
-  res = Sanitizer.activitySlidesCheck([{id: "id", name: "name", app_id: "    ", assets: [{id:"id", version: 1}], data: "data"}])
-  expect(res).toBe(false)
-
-  res = Sanitizer.activitySlidesCheck([{id: "id", name: "name", app_id: "app_id", assets: [{id:"   ", version: 1}], data: "data"}])
-  expect(res).toBe(false)
-
-  res = Sanitizer.activitySlidesCheck([{id: "id", name: "name", app_id: "app_id", assets: [{id:"id", version: "1"}], data: "data"}])
-  expect(res).toBe(false)
-
-  res = Sanitizer.activitySlidesCheck([{id: "id", name: "name", app_id: "app_id", assets: [{id:"id", version: 1}], data: "  "}])
-  expect(res).toBe(false)
-
-  res = Sanitizer.activitySlidesCheck([{id: "id", name: "name", app_id: "app_id", assets: ["wrong"], data: "  "}])
-  expect(res).toBe(false)
-
-  res = Sanitizer.activitySlidesCheck("wrong")
-  expect(res).toBe(false)
+test("Sanitizer.boolean - test on fail", () => {
+  expect(() => Sanitizer.boolean("wrong")).toThrowError(Sanitizer.boolean_error)
+  expect(() => Sanitizer.boolean(3)).toThrowError(Sanitizer.boolean_error)
 })
 
-test("Sanitizer.activitySlidesCheck - test on success", () => {
-  let res = Sanitizer.activitySlidesCheck([{id: "id", name: "name", app_id: "app_id", assets: [{id:"id", version: 1}], data: "data"}])
-  expect(res).toBe(true)
+test("Sanitizer.boolean - test on success", () => {
+  expect(Sanitizer.boolean(true)).toBe(true)
+  expect(Sanitizer.boolean(false)).toBe(false)
 })
 
-test("Sanitizer.assetFile_appDataCheck - test on fail", () => {
-  let res = Sanitizer.assetFile_appDataCheck([{wrong: "data"}])
-  expect(res).toBe(false)
-
-  res = Sanitizer.assetFile_appDataCheck([{app_id: "    ", data: "data"}])
-  expect(res).toBe(false)
-
-  res = Sanitizer.assetFile_appDataCheck([{app_id: "app_id", data: "   "}])
-  expect(res).toBe(false)
-
-  res = Sanitizer.assetFile_appDataCheck("wrong")
-  expect(res).toBe(false)
-})
-
-test("Sanitizer.assetFile_appDataCheck - test on success", () => {
-  let res = Sanitizer.assetFile_appDataCheck([{app_id: "app_id", data: "data"}, {app_id: "app_id", data: "data"}])
-  expect(res).toBe(true)
-})
-
-test("Sanitizer.statusCheck - test on fail", () => {
-  let res = Sanitizer.statusCheck("wrong")
-  expect(res).toBe(false)
-})
-
-test("Sanitizer.statusCheck - test on success", () => {
-  let res = Sanitizer.statusCheck("draft")
-  expect(res).toBe(true)
-
-  res = Sanitizer.statusCheck("review")
-  expect(res).toBe(true)
-
-  res = Sanitizer.statusCheck("published")
-  expect(res).toBe(true)
-})
-
-test("Sanitizer.assetTypeCheck - test on fail", () => {
-  let res = Sanitizer.assetTypeCheck("wrong")
-  expect(res).toBe(false)
-})
-
-test("Sanitizer.assetTypeCheck - test on success", () => {
-  let res = Sanitizer.assetTypeCheck("glb")
-  expect(res).toBe(true)
-
-  res = Sanitizer.assetTypeCheck("image")
-  expect(res).toBe(true)
-})
-
-test("Sanitizer.isBoolean - test on fail", () => {
-  let res = Sanitizer.isBoolean("wrong")
-  expect(res).toBe(false)
-})
-
-test("Sanitizer.isBoolean - test on success", () => {
-  let res = Sanitizer.isBoolean(true)
-  expect(res).toBe(true)
-
-  res = Sanitizer.isBoolean(false)
-  expect(res).toBe(true)
-})
-
-test("Sanitizer.accessPatternCheck - test on fail", () => {
-  let res = Sanitizer.accessPatternCheck("wrong")
-  expect(res).toBe(false)
-})
-
-test("Sanitizer.accessPatternCheck - test on success", () => {
-  let res = Sanitizer.accessPatternCheck("private")
-  expect(res).toBe(true)
-
-  res = Sanitizer.accessPatternCheck("hidden")
-  expect(res).toBe(true)
-})
-
-test("Sanitizer.embedPermissionCheck - test on fail", () => {
-  let res = Sanitizer.embedPermissionCheck("wrong")
-  expect(res).toBe(false)
-})
-
-test("Sanitizer.embedPermissionCheck - test on success", () => {
-  let res = Sanitizer.embedPermissionCheck("anywhere")
-  expect(res).toBe(true)
-
-  res = Sanitizer.embedPermissionCheck("disabled")
-  expect(res).toBe(true)
-
-  res = Sanitizer.embedPermissionCheck("white_list")
-  expect(res).toBe(true)
-})
-
-test("Sanitizer.lodCheck - test on fail", () => {
-  let res = Sanitizer.lodCheck("wrong")
-  expect(res).toBe(false)
-})
-
-test("Sanitizer.lodCheck - test on success", () => {
-  let res = Sanitizer.lodCheck("ld")
-  expect(res).toBe(true)
-
-  res = Sanitizer.lodCheck("sd")
-  expect(res).toBe(true)
-
-  res = Sanitizer.lodCheck("hd")
-  expect(res).toBe(true)
-})
-
-test("Sanitizer.fileFormatCheck - test on fail", () => {
-  let res = Sanitizer.fileFormatCheck("wrong")
-  expect(res).toBe(false)
-})
-
-test("Sanitizer.fileFormatCheck - test on success", () => {
-  let res = Sanitizer.fileFormatCheck("glb")
-  expect(res).toBe(true)
-})
-
-test("Sanitizer.languageCheck - test on fail", () => {
-  let res = Sanitizer.languageCheck("wrong")
-  expect(res).toBe(false)
-})
-
-test("Sanitizer.languageCheck - test on success", () => {
-  Sanitizer.validlanguages.forEach(lan => {
-    let res = Sanitizer.languageCheck(lan)
-    expect(res).toBe(true)
-  })
-})
-
-test("Sanitizer.string - test with nothing in string", () => {
-  let res = Sanitizer.string("       ")
-  expect(res).toBe(null)
+test("Sanitizer.string - test error", () => {
+  expect(() => Sanitizer.string(123)).toThrowError(Sanitizer.string_error)
 })
 
 test("Sanitizer.string - test with alot to trim", () => {
-  let res = Sanitizer.string("    hi   ")
-  expect(res).toBe("hi")
+  expect(Sanitizer.string("    hi   ")).toBe("hi")
+  expect(Sanitizer.string("       ")).toBe("")
 })
 
 test("Sanitizer.isObjectsEquivalent - test on fail", () => {
