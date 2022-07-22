@@ -7,18 +7,20 @@ import * as date from "../../../../libs/date"
 import {
   buildMakeCoin,
   buildMakeGroup
-} from "../entities"
+} from "./entities"
 
-import {} from "../useCases"
+import {} from "./useCases"
 
-import buildAcceptChannelInviteRequest from "./requests/acceptChannelInviteRequest"
+import {
+  buildCreateCoinRequest
+} from "./requests"
 
 const makeCoin = buildMakeCoin( createId, Sanitizer, date ),
 makeGroup = buildMakeGroup( createId, Sanitizer ) 
 
 const acceptChannelInvite = buildAcceptChannelInvite(CoinCalls),
-acceptChannelInviteRequest = buildAcceptChannelInviteRequest(response, acceptChannelInvite)
+createCointRequest = buildCreateCoinRequest(response, acceptChannelInvite)
 
 export {
-  acceptChannelInviteRequest
+  createCointRequest
 }
