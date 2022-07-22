@@ -1,6 +1,7 @@
 import {
   buildMakeCoin,
-  invalid_context_error
+  invalid_context_error,
+  userId_error
 } from "../coin"
 import createId from "../../../../libs/create_id"
 import * as Sanitizer from "../../../../libs/sanitizer-lib"
@@ -12,9 +13,16 @@ const date = {
   }
 }
 
+test("makeCoin - test throw error no userId", async () => {
+  const makeCoin = buildMakeCoin(createId, Sanitizer, date)
+
+  expect(() => makeCoin({})).toThrowError(userId_error)
+})
+
 test("makeCoin - test throw error with bad amount", async () => {
   const makeCoin = buildMakeCoin(createId, Sanitizer, date),
   newInfo = {
+    userId: "333",
     amount: "100"
   }
 
@@ -24,6 +32,7 @@ test("makeCoin - test throw error with bad amount", async () => {
 test("makeCoin - test throw error with bad context", async () => {
   const makeCoin = buildMakeCoin(createId, Sanitizer, date),
   newInfo = {
+    userId: "333",
     amount: 100,
     context: "wrong"
   }
@@ -34,6 +43,7 @@ test("makeCoin - test throw error with bad context", async () => {
 test("makeCoin - test throw error with bad group", async () => {
   const makeCoin = buildMakeCoin(createId, Sanitizer, date),
   newInfo = {
+    userId: "333",
     amount: 100,
     context: "STORED",
     group: 123
@@ -45,6 +55,7 @@ test("makeCoin - test throw error with bad group", async () => {
 test("makeCoin - test max success", async () => {
   const makeCoin = buildMakeCoin(createId, Sanitizer, date),
   newInfo = {
+    userId: "333",
     amount: 100,
     context: "STORED",
     group: "a group"
@@ -52,7 +63,7 @@ test("makeCoin - test max success", async () => {
   res = makeCoin(newInfo)
 
   expect(res.PK).toBeTruthy()
-  expect(res.SK).toBeTruthy()
+  expect(res.SK).toBe("333")
   expect(res.amount).toBe(newInfo.amount)
   expect(res.context).toBe(newInfo.context)
   expect(res.group).toBe(newInfo.group)
@@ -63,10 +74,12 @@ test("makeCoin - test max success", async () => {
 
 test("makeCoin - test min success", () => {
   const makeCoin = buildMakeCoin(createId, Sanitizer, date),
-  res = makeCoin({})
+  res = makeCoin({
+    userId: "333"
+  })
 
   expect(res.PK).toBeTruthy()
-  expect(res.SK).toBeTruthy()
+  expect(res.SK).toBe("333")
   expect(res.amount).toBe(0)
   expect(res.context).toBe('STORED')
   expect(res.date).toBe("123")
