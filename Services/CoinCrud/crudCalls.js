@@ -15,7 +15,8 @@ import {
 } from "./useCases"
 
 import {
-  buildCreateCoinRequest
+  buildCreateCoinRequest,
+  buildGetCoinRequest
 } from "./requests"
 
 const makeCoin = buildMakeCoin( createId, Sanitizer, date ),
@@ -24,6 +25,10 @@ makeGroup = buildMakeGroup( createId, Sanitizer )
 const createCoin = buildCreateCoin(CoinCalls, makeCoin),
 createCoinRequest = buildCreateCoinRequest(response, createCoin)
 
+const getCoin = buildGetCoin(CoinCalls),
+getCoinRequest = buildGetCoinRequest(response, getCoin)
+
 export {
-  createCoinRequest
+  createCoinRequest,
+  getCoinRequest
 }

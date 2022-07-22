@@ -10,3 +10,16 @@ create_coin:
         # authorizer:
         #   type: CUSTOM
         #   authorizerId: ${self:custom.AdminAuthorizerId}
+
+
+get_coin:
+  handler: requests/index.getCoinRequest
+  # alarms: 
+  #   - InternalErrors
+  events:
+    - http:
+        path: coins/{coinId}
+        method: get
+        # authorizer:
+        #   type: CUSTOM
+        #   authorizerId: ${self:custom.AdminAuthorizerId}
