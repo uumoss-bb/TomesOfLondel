@@ -1,15 +1,12 @@
 
-channel_create:
-  handler: http_requests/index.createChannelRequest
+create_coin:
+  handler: requests/index.createCoinRequest
   alarms: 
     - InternalErrors
   events:
     - http:
-        path: channels
+        path: coins
         method: post
-        cors:
-          origin: ${self:custom.${self:custom.stage}.CORS_ORIGIN}
-          allowCredentials: false
-        authorizer:
-          type: CUSTOM
-          authorizerId: ${self:custom.AdminAuthorizerId}
+        # authorizer:
+        #   type: CUSTOM
+        #   authorizerId: ${self:custom.AdminAuthorizerId}
