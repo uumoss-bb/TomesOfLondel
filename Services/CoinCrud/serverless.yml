@@ -87,6 +87,9 @@ provider:
     restApiRootResourceId:
       'Fn::ImportValue': ${self:custom.stage}-TheTomes-RestApiRootResourceId
 
+functions:
+  - ${file(crudCalls.yml)}
+
 resources: 
   - ${file(db/table.yml)}
   - Outputs: ${file(db/output.yml)}
