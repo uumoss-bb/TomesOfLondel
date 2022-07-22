@@ -1,8 +1,8 @@
 
 create_coin:
   handler: requests/index.createCoinRequest
-  alarms: 
-    - InternalErrors
+  # alarms: 
+  #   - InternalErrors
   events:
     - http:
         path: coins

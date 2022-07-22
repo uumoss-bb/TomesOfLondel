@@ -10,7 +10,8 @@ import {
 } from "./entities"
 
 import {
-  buildCreateCoin
+  buildCreateCoin,
+  buildGetCoin
 } from "./useCases"
 
 import {
