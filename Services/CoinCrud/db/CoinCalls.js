@@ -1,9 +1,10 @@
-import UniversalCalls from "./UniversalCalls"
+import UniversalCalls from "../../../Controllers/DataBase/UniversalCalls"
 
 class MakeCoinCalls extends UniversalCalls {
   constructor() {
-    this.tableName = process.env.DBNAME
-    super(process.env.DBNAME)
+    const tableName = process.env.DBNAME ? process.env.DBNAME : "TheTomes-dev-coins"
+    super(tableName)
+    this.tableName = tableName
   }
 }
 

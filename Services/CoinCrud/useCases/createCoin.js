@@ -12,7 +12,7 @@ export default function buildCreateCoin(CoinCalls, makeCoin) {
       throw new Error(error_no_userId)
     }
 
-    let coin = makeCoin(body)
+    let coin = makeCoin({ userId, ...body })
     await CoinCalls.Create(coin)
 
     return coin
