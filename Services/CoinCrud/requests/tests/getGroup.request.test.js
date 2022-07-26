@@ -1,5 +1,5 @@
-import { editCoinGroupRequest } from "../../crudCalls"
-import buildEditCoinGroupRequest from "../createCoin"
+import { getGroupRequest } from "../../crudCalls"
+import buildGetGroupRequest from "../getGroup"
 import * as response from "../../../../libs/response-lib"
 import CoinCalls from "../../db/CoinCalls"
 
@@ -10,53 +10,40 @@ beforeEach(async () => {
   });
 });
 
-test("editCoinGroupRequest - test on fail", async () => {
+test("getGroupRequest - test on fail", async () => {
   const _acceptChannelInvite = () => {
     throw new Error("error message")
   }
 
-  const _editCoinGroupRequest = buildEditCoinGroupRequest(response, _acceptChannelInvite),
-  res = await _editCoinGroupRequest({isTesting: true})
+  const _getGroupRequest = buildGetGroupRequest(response, _acceptChannelInvite),
+  res = await _getGroupRequest({isTesting: true})
 
   expect(res).toStrictEqual({"body": "{\"message\":\"error message\"}", "headers": {"Access-Control-Allow-Credentials": true, "Access-Control-Allow-Methods": "OPTIONS,POST,GET,DELETE,PATCH", "Access-Control-Allow-Origin": "*"}, "statusCode": 500})
 })
 
-test("editCoinGroupRequest - test on success", async () => {
-  const theCoin = {
+test("getGroupRequest - test on success", async () => {
+  const theGroup = {
     PK: '2678a317-5d11-4d57-8eca-2af20589eddd',
     SK: '333',
-    amount: 100,
-    context: 'STORED',
-    date: '123',
-    group: '123'
+    name: "groupName"
   }
 
-  const theGroup = {
-    PK: '2678a317',
-    SK: '333',
-    name: "name"
-  }
-
-  await CoinCalls.Create(theCoin)
   await CoinCalls.Create(theGroup)
 
   const event = {
-    pathParameters: { coinId: theCoin.PK },
-    body: JSON.stringify({
-      group: theGroup.PK
-    }),
+    pathParameters: { groupId: theGroup.PK },
     requestContext: {
       authorizer: {
-        userId: theCoin.SK
+        userId: theGroup.SK
       }
     }
   },
-  res = await editCoinGroupRequest(event)
+  res = await getGroupRequest(event)
 
   expect(res.statusCode).toBe(200)
 
   const coin = JSON.parse(res.body)
 
   const liveCoin = await CoinCalls.Read(coin.PK, coin.SK)
-  expect(liveCoin).toStrictEqual({...theCoin, group: theGroup.PK})
+  expect(liveCoin).toStrictEqual(theGroup)
 })

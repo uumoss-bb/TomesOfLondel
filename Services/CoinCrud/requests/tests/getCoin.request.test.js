@@ -1,5 +1,5 @@
 import { getCoinRequest } from "../../crudCalls"
-import buildGetCoinRequest from "../createCoin"
+import buildGetCoinRequest from "../getCoin"
 import * as response from "../../../../libs/response-lib"
 import CoinCalls from "../../db/CoinCalls"
 

@@ -35,7 +35,7 @@ edit_coin_group:
         #   type: CUSTOM
         #   authorizerId: ${self:custom.AdminAuthorizerId}
 
-create_gorup:
+create_group:
   handler: requests/index.createGroupRequest
   # alarms: 
   #   - InternalErrors
@@ -43,6 +43,18 @@ create_gorup:
     - http:
         path: group
         method: post
+        # authorizer:
+        #   type: CUSTOM
+        #   authorizerId: ${self:custom.AdminAuthorizerId}
+
+get_group:
+  handler: requests/index.getGroupRequest
+  # alarms: 
+  #   - InternalErrors
+  events:
+    - http:
+        path: group/{groupId}
+        method: get
         # authorizer:
         #   type: CUSTOM
         #   authorizerId: ${self:custom.AdminAuthorizerId}

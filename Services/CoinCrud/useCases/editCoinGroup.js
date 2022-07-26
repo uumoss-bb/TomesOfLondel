@@ -17,6 +17,8 @@ export default function buildEditCoinGroup(CoinCalls) {
       throw new Error(error_no_group)
     }
 
+    await CoinCalls.Read(body.group, userId)
+
     let coin = await CoinCalls.Read(coinId, userId)
     return await CoinCalls.Update(coin, {group: body.group})
   }
