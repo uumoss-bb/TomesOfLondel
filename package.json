@@ -11,7 +11,8 @@
 	},
 	"devDependencies": {
 		"serverless-dynamodb-local": "^0.2.39",
-		"serverless-offline": "^6.8.0"
+		"serverless-offline": "^6.8.0",
+		"serverless-plugin-optimize": "^4.2.1-rc.1"
 	},
 	"dependencies": {
 		"@babel/core": "^7.12.9",

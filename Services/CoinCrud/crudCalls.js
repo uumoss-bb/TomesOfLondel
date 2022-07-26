@@ -11,12 +11,16 @@ import {
 
 import {
   buildCreateCoin,
-  buildGetCoin
+  buildGetCoin,
+  buildEditCoinGroup,
+  buildCreateGroup
 } from "./useCases"
 
 import {
   buildCreateCoinRequest,
-  buildGetCoinRequest
+  buildGetCoinRequest,
+  buildEditCoinGroupRequest,
+  buildCreateGroupRequest
 } from "./requests"
 
 const makeCoin = buildMakeCoin( createId, Sanitizer, date ),
@@ -28,7 +32,15 @@ createCoinRequest = buildCreateCoinRequest(response, createCoin)
 const getCoin = buildGetCoin(CoinCalls),
 getCoinRequest = buildGetCoinRequest(response, getCoin)
 
+const editCoinGroup = buildEditCoinGroup(CoinCalls),
+editCoinGroupRequest = buildEditCoinGroupRequest(response, editCoinGroup)
+
+const createGroup = buildCreateGroup(CoinCalls, makeGroup),
+createGroupRequest = buildCreateGroupRequest(response, createGroup)
+
 export {
   createCoinRequest,
-  getCoinRequest
+  getCoinRequest,
+  editCoinGroupRequest,
+  createGroupRequest
 }
