@@ -11,9 +11,10 @@
 	],
 	"group": [
 		{
-			"PK": "86436315-0bc5-4b7e-b82a-fecb95a8d75d",
+			"PK": "edee1e84-9c25-46ae-8042-b5ae786f9582",
 			"SK": "333",
-			"name": "group"
+			"name": "group",
+			"amount": 100
 		}
 	]
 }

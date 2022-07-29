@@ -1,5 +1,5 @@
 export default function buildMakeGroup(Id, Sanitizer) {
-  return function ({ userId, name }) {
+  return function ({ userId, name, amount }) {
 
     if(!userId) {
       throw Error(userId_error)
@@ -13,7 +13,8 @@ export default function buildMakeGroup(Id, Sanitizer) {
     newData = {
       PK: uid,
       SK: userId,
-      name: Sanitizer.string(name)
+      name: Sanitizer.string(name),
+      amount: amount ? Sanitizer.number(amount) : 0,
     }
 
     return newData

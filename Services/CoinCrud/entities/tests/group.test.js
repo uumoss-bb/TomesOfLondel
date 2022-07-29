@@ -35,7 +35,24 @@ test("makeGroup - test throw error with missing name", async () => {
   expect(() => makeGroup(newInfo)).toThrowError(name_error)
 })
 
-test("makeGroup - test success", async () => {
+test("makeGroup - test max success", async () => {
+  const makeGroup = buildMakeGroup(createId, Sanitizer, date),
+  newInfo = {
+    userId: "333",
+    name: "group",
+    amount: 100
+  },
+  res = makeGroup(newInfo)
+
+  expect(res.PK).toBeTruthy()
+  expect(res.SK).toBe("333")
+  expect(res.name).toBe(newInfo.name)
+  expect(res.amount).toBe(newInfo.amount)
+
+  await collectEntity("group", res)
+})
+
+test("makeGroup - test min success", async () => {
   const makeGroup = buildMakeGroup(createId, Sanitizer, date),
   newInfo = {
     userId: "333",
@@ -46,6 +63,5 @@ test("makeGroup - test success", async () => {
   expect(res.PK).toBeTruthy()
   expect(res.SK).toBe("333")
   expect(res.name).toBe(newInfo.name)
-
-  await collectEntity("group", res)
+  expect(res.amount).toBe(0)
 })
