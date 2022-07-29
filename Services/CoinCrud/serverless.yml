@@ -2,7 +2,7 @@ service: TheTomes-CoinCrud
 
 plugins:
   - serverless-plugin-optimize
-  # - serverless-plugin-aws-alerts
+  - serverless-plugin-aws-alerts
 
 package:
   individually: true
@@ -30,37 +30,37 @@ custom:
     prefix: 'dist'
     presets: ['@babel/preset-env']
 
-  # alerts:
-  #   stages:
-  #     - prod
-  #     - staging
+  alerts:
+    stages:
+      - prod
+      - staging
 
-  #   dashboards: false
+    dashboards: false
 
-  #   nameTemplate: $[functionName]-$[metricName]-Alarm # Optionally - naming template for alarms, can be overwritten in definitions
-  #   prefixTemplate: $[stackName] # Optionally - override the alarm name prefix
+    nameTemplate: $[functionName]-$[metricName]-Alarm # Optionally - naming template for alarms, can be overwritten in definitions
+    prefixTemplate: $[stackName] # Optionally - override the alarm name prefix
 
-  #   topics:
-  #     alarm:
-  #       topic: ${self:service}-${opt:stage}-alerts-alarm
-  #       notifications:
-  #         - protocol: email
-  #           endpoint: balserbrodie@gmail.com
+    topics:
+      alarm:
+        topic: ${self:service}-${opt:stage}-alerts-alarm
+        notifications:
+          - protocol: email
+            endpoint: balserbrodie@gmail.com
 
-  #   definitions:  # these defaults are merged with your definitions
-  #     InternalErrors:
-  #       metric: InternalErrors
-  #       description: 'This will scan a functions logs and if it sees the pattern(e.g. error status = 500) this it will sound the alarm'
-  #       threshold: 0
-  #       statistic: Sum
-  #       period: 60
-  #       evaluationPeriods: 1
-  #       datapointsToAlarm: 1
-  #       comparisonOperator: GreaterThanThreshold
-  #       pattern: '{$.statusCode=500}'
+    definitions:  # these defaults are merged with your definitions
+      InternalErrors:
+        metric: InternalErrors
+        description: 'This will scan a functions logs and if it sees the pattern(e.g. error status = 500) this it will sound the alarm'
+        threshold: 0
+        statistic: Sum
+        period: 60
+        evaluationPeriods: 1
+        datapointsToAlarm: 1
+        comparisonOperator: GreaterThanThreshold
+        pattern: '{$.statusCode=500}'
 
-  #   alarms:
-  #     - InternalErrors
+    alarms:
+      - InternalErrors
     
 provider:
   name: aws
@@ -78,19 +78,19 @@ provider:
       cluster: CoinCRUD_microservice
       enviroment: ${self:custom.stage}
 
-  # iamRoleStatements:
-  #   - Effect: Allow
-  #     Action:
-  #       - dynamodb:Query
-  #       - dynamodb:Scan
-  #       - dynamodb:GetItem
-  #       - dynamodb:PutItem
-  #       - dynamodb:UpdateItem
-  #       - dynamodb:DeleteItem
-  #       - dynamodb:BatchGetItem
-  #     Resource:
-  #       - 'Fn::ImportValue': TheTomes-${self:custom.stage}-CoinTableArn
-  #       - ${cf:TheTomes-CoinCrud-${self:custom.stage}.CoinTableArn}/index/*
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:BatchGetItem
+      Resource:
+        - 'Fn::ImportValue': TheTomes-${self:custom.stage}-CoinTableArn
+        - ${cf:TheTomes-CoinCrud-${self:custom.stage}.CoinTableArn}/index/*
 
   apiGateway:
     restApiId:

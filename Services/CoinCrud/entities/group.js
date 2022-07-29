@@ -13,7 +13,7 @@ export default function buildMakeGroup(Id, Sanitizer) {
     newData = {
       PK: uid,
       SK: userId,
-      name: Sanitizer.string(name),
+      name: Sanitizer.string(name)
     }
 
     return newData

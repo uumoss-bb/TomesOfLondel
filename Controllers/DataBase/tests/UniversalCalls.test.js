@@ -1,6 +1,6 @@
 import { UniversalCalls, error_no_data, error_no_info } from "../UniversalCalls"
 import { v4 as uuidv4, v4 } from "uuid"
-const tableName = "VivedApi-dev-ouzel"
+const tableName = "TheTomes-dev-coins"
 
 beforeEach(async () => {
   return new Promise(async (resolve) => {

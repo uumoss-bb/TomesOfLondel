@@ -1,7 +1,7 @@
 {
 	"coin": [
 		{
-			"PK": "2678a317-5d11-4d57-8eca-2af20589eddd",
+			"PK": "0cc697bb-1ede-4980-a5e4-bf10b544a932",
 			"SK": "333",
 			"amount": 100,
 			"context": "STORED",
@@ -11,7 +11,7 @@
 	],
 	"group": [
 		{
-			"PK": "b88064d9-e090-45bf-ba62-76f48282f65d",
+			"PK": "86436315-0bc5-4b7e-b82a-fecb95a8d75d",
 			"SK": "333",
 			"name": "group"
 		}

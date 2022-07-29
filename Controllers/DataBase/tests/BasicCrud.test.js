@@ -2,7 +2,7 @@ import { BasicCrud, error_no_data, error_no_info } from "../BasicCrud"
 import UniversalCalls from "../UniversalCalls"
 
 
-const tableName = "VivedApi-dev-ouzel"
+const tableName = "TheTomes-dev-coins"
 
 beforeEach(async () => {
   return new Promise(async (resolve) => {

@@ -1,5 +1,5 @@
 import { editCoinGroupRequest } from "../../crudCalls"
-import buildEditCoinGroupRequest from "../createCoin"
+import buildEditCoinGroupRequest from "../editCoinGroup"
 import * as response from "../../../../libs/response-lib"
 import CoinCalls from "../../db/CoinCalls"
 
