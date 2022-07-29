@@ -30,11 +30,19 @@ test("makeCoin - test throw error with bad amount", async () => {
 })
 
 test("makeCoin - test throw error with bad context", async () => {
-  const makeCoin = buildMakeCoin(createId, Sanitizer, date),
+  let makeCoin = buildMakeCoin(createId, Sanitizer, date),
   newInfo = {
     userId: "333",
     amount: 100,
     context: "wrong"
+  }
+
+  expect(() => makeCoin(newInfo)).toThrowError(invalid_context_error)
+
+  newInfo = {
+    userId: "333",
+    amount: 100,
+    // context: "im missing"
   }
 
   expect(() => makeCoin(newInfo)).toThrowError(invalid_context_error)
@@ -45,7 +53,7 @@ test("makeCoin - test throw error with bad group", async () => {
   newInfo = {
     userId: "333",
     amount: 100,
-    context: "STORED",
+    context: "ADDED",
     group: 123
   }
 
@@ -57,7 +65,7 @@ test("makeCoin - test max success", async () => {
   newInfo = {
     userId: "333",
     amount: 100,
-    context: "STORED",
+    context: "ADDED",
     group: "a group"
   },
   res = makeCoin(newInfo)
@@ -75,12 +83,13 @@ test("makeCoin - test max success", async () => {
 test("makeCoin - test min success", () => {
   const makeCoin = buildMakeCoin(createId, Sanitizer, date),
   res = makeCoin({
-    userId: "333"
+    userId: "333",
+    context: "SUBTRACTED"
   })
 
   expect(res.PK).toBeTruthy()
   expect(res.SK).toBe("333")
   expect(res.amount).toBe(0)
-  expect(res.context).toBe('STORED')
+  expect(res.context).toBe("SUBTRACTED")
   expect(res.date).toBe("123")
 })

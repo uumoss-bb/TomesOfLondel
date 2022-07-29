@@ -10,13 +10,16 @@ export default function buildMakeCoin(Id, Sanitizer, date) {
       PK: uid,
       SK: userId,
       amount: amount ? Sanitizer.number(amount) : 0,
-      context: "STORED",
       date: date.now()
     }
 
-    if(context && ["STORED", "ADDED", "SUBTRACTED"].includes(context)) {
+    if(!context) {
+      throw Error(invalid_context_error)
+    }
+
+    if(["ADDED", "SUBTRACTED"].includes(context)) {
       newCoin.context = Sanitizer.string(context)
-    } else if(context) {
+    } else {
       throw Error(invalid_context_error)
     }
 

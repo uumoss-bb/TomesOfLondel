@@ -1,11 +1,11 @@
 {
 	"coin": [
 		{
-			"PK": "0cc697bb-1ede-4980-a5e4-bf10b544a932",
+			"PK": "7aaeb5e7-a6c8-40cc-94da-ac4e99497308",
 			"SK": "333",
 			"amount": 100,
-			"context": "STORED",
 			"date": "123",
+			"context": "ADDED",
 			"group": "a group"
 		}
 	],
